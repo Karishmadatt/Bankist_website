@@ -152,6 +152,9 @@ nav.addEventListener('mouseout',hover.bind(1));
 // })
 
 
+
+
+
 ///////////////////////////
 // sticky nav 
 /////////////////////////
@@ -174,6 +177,23 @@ stickynav , {
 });
 headerobserver.observe(header);
 
+// Revealing element on scroll
 
+const allsection = document.querySelectorAll('.section');
 
+const revealsection = function(entries,observer){
+  const [entry] =  entries;
+  // console.log(entry);
+  if(!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+};
 
+const sectionoberserver = new IntersectionObserver(revealsection,{
+root:null,
+threshold:0.15,
+});
+
+allsection.forEach(function(section){
+  sectionoberserver.observe(section);
+  section.classList.add('section--hidden');
+})
